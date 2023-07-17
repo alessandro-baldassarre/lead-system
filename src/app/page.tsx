@@ -1,10 +1,17 @@
+import Board from '@/components/Board'
+import NavBar from '@/components/NavBar'
 import Sidebar from '@/components/Sidebar'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen">
+    <main className="flex">
       <Sidebar />
-      <div>content</div>
+      <div className="flex-1 flex flex-col">
+        <NavBar />
+        <div className="p-2 flex-1">
+          <Board />
+        </div>
+      </div>
     </main>
   )
 }
