@@ -13,7 +13,7 @@ export default function Sidebar() {
     <div>
       {isMinimized && !isOpen && (
         <div
-          className="w-72 h-80 bg-white shadow-lg rounded-md absolute top-12 left-1"
+          className="w-72 h-80 bg-white shadow-outline rounded-md absolute top-14 -left-1"
           onMouseLeave={() => toogleMinimize()}
         >
           <div className="flex justify-between items-center p-4">
