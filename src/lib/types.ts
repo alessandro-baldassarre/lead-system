@@ -1,5 +1,15 @@
+import type { DraggableId, DraggableLocation } from '@hello-pangea/dnd'
+
+export interface Board {
+  columns: Map<Esito, Column>
+}
+
+export interface Column {
+  id: Esito
+  leads: Lead[]
+}
 export interface Lead {
-  id: string
+  _id: string
   nome: string
   cognome: string
   email: string
@@ -19,4 +29,13 @@ export enum Esito {
   'opportunità' = 'opportunità',
   'in valutazione' = 'in valutazione',
   'iscrizione' = 'iscrizione',
+}
+
+export interface Dragging {
+  id: DraggableId
+  location: DraggableLocation
+}
+
+export interface LeadMap {
+  [key: string]: Lead[]
 }
