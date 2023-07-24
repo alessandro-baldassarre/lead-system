@@ -6,6 +6,7 @@ interface SidebarState {
   isMinimized: boolean
   toggleSidebar: () => void
   toggleMinimize: () => void
+  setIsMinimized: (isMinimized: boolean) => void
 }
 
 const useSidebar = create(
@@ -15,6 +16,7 @@ const useSidebar = create(
       isMinimized: false,
       toggleSidebar: () => set((state) => ({ isOpen: !state.isOpen })),
       toggleMinimize: () => set((state) => ({ isMinimized: !state.isMinimized })),
+      setIsMinimized: (isMinimized) => set({ isMinimized }),
     }),
     { name: 'sidebar' }
   )

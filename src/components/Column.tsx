@@ -15,7 +15,7 @@ export default function Column({ leads, id, index }: ColumnProps) {
     <Draggable draggableId={id} index={index}>
       {(provided: DraggableProvided) => (
         <div
-          className="flex flex-col m-2"
+          className="flex flex-col"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
