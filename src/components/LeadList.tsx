@@ -3,7 +3,6 @@
 import { Esito, Lead } from '@/lib/types'
 import { Draggable, Droppable, DroppableProvided, DroppableStateSnapshot } from '@hello-pangea/dnd'
 import LeadItem from './LeadItem'
-import { PlusCircleIcon } from 'lucide-react'
 
 interface LeadListProps {
   leads: Lead[]
@@ -25,24 +24,37 @@ const idToColumnTitle: {
   opportunità: 'Opportunità',
 }
 
+const borderColors: {
+  [key in Esito]: string
+} = {
+  'da contattare': 'border-red-400',
+  'in lavorazione': 'border-yellow-400',
+  'in valutazione': 'border-green-400',
+  iscrizione: 'border-blue-400',
+  'non interessato': 'border-indigo-400',
+  'non risponde': 'border-purple-700',
+  'non valido': 'border-pink-400',
+  opportunità: 'border-violet-300',
+}
+
 export default function LeadList({ leads, listId, listType, id }: LeadListProps) {
   return (
     <Droppable droppableId={listId} type={listType}>
       {(dropProvided: DroppableProvided, dropSnapshot: DroppableStateSnapshot) => (
         <div
-          className={`p-2 rounded-md shadow-sm min-w-[250px] ${
-            dropSnapshot.isDraggingOver ? 'bg-green-200' : 'bg-white/50'
-          }`}
+          className={`p-2 rounded-md min-w-[250px] ${dropSnapshot.isDraggingOver ? 'bg-neutral-50' : 'bg-white/50'}`}
           {...dropProvided.droppableProps}
           ref={dropProvided.innerRef}
         >
-          <h2 className="flex justify-between font-light ">
+          <div
+            className={`flex gap-2 font-semibold text-xs h-12 items-center uppercase p-3 shadow-md mb-10 rounded-md border-t-2 ${borderColors[id]}`}
+          >
             {idToColumnTitle[id]}
-            <span className="text-gray-500 bg-gray-200 rounded-full w-6 h-6 text-xs flex items-center justify-center">
+            <span className="text-gray-500 border rounded-full w-6 h-5 text-xs flex items-center justify-center font-normal text-[10px]">
               {leads.length}
             </span>
-          </h2>
-          <div className="space-y-2">
+          </div>
+          <div className="space-y-3">
             {leads.map((lead, index) => (
               <Draggable key={lead._id} draggableId={lead._id} index={index}>
                 {(dragProvided) => (
@@ -58,10 +70,8 @@ export default function LeadList({ leads, listId, listType, id }: LeadListProps)
               </Draggable>
             ))}
             {dropProvided.placeholder}
-            <div>
-              <button>
-                <PlusCircleIcon className="w-6 h-6 hover:text-green-600" />
-              </button>
+            <div className="opacity-0 hover:opacity-100 w-full px-2 py-2 font-light text-sm">
+              <button>+ Nuovo lead</button>
             </div>
           </div>
         </div>

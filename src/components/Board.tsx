@@ -5,10 +5,13 @@ import Column from './Column'
 import useBoard from '@/stores/useBoard'
 import type { Board, Column as ColumnType } from '@/lib/types'
 import { useEffect } from 'react'
+import { cn } from '@/lib/utils'
+import useStore from '@/hooks/useStore'
+import useSidebar from '@/stores/useSidebar'
 
 export default function Board() {
-  // const board = useStore(useBoard, (state) => state.board)
   const [board, getBoard, setBoard] = useBoard((state) => [state.board, state.getBoard, state.setBoard])
+  const isOpen = useStore(useSidebar, (state) => state.isOpen)
 
   useEffect(() => {
     getBoard()
@@ -84,7 +87,15 @@ export default function Board() {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="board" type="COLUMN" direction="horizontal">
         {(provided) => (
-          <div className="flex gap-5" ref={provided.innerRef} {...provided.droppableProps}>
+          <div
+            className={cn(
+              'flex gap-2 h-fit p-4',
+              { 'w-[calc(100vw-16px)]': !isOpen },
+              { 'w-[calc(100vw-300px)]': isOpen }
+            )}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
             {board &&
               board.columns &&
               board.columns.size > 0 &&
